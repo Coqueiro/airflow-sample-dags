@@ -790,7 +790,7 @@ dags:
     ## EXAMPLE: (SSH)
     ##   url: "ssh://git@github.com:torvalds/linux.git"
     ##
-    url: "ssh://git@github.com:Coqueiro/airflow-sample-dags.git"
+    url: "git@github.com:Coqueiro/airflow-sample-dags.git"
 
     ## the branch/tag/sha1 which we clone
     ##
@@ -903,7 +903,7 @@ dags:
       repository: alpine/git
       tag: latest
       ## values: Always or IfNotPresent
-      pullPolicy: Always
+      pullPolicy: IfNotPresent
 
     ## path to mount dags-data volume to
     ##
