@@ -139,6 +139,7 @@ airflow:
   ##
   extraPipPackages:
     - "apache-airflow-backport-providers-google"
+    - "pep562"
     # - "apache-airflow-backport-providers-cncf-kubernetes"
 
   ## extra volumeMounts for the web/scheduler/worker Pods
