@@ -23,7 +23,7 @@ sys.path.append('/opt/airflow/dags')
 from typing import Optional
 
 from airflow.models import BaseOperator
-from airflow.providers.cncf.kubernetes.hooks.kubernetes import KubernetesHook
+from airflow_local.providers.cncf.kubernetes.hooks.kubernetes import KubernetesHook
 from airflow.utils.decorators import apply_defaults
 
 
