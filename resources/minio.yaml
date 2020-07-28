@@ -1,0 +1,36 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: minio
+  namespace: default
+spec:
+  releaseName: minio
+  chart:
+    repository: "https://kubernetes-charts.storage.googleapis.com/"
+    version: "5.0.26"
+    name: "minio"
+  values:
+    # This key is fake. Generated randomly to be used by Minio locally.
+    accessKey: "AKIA2BH2PTWKN3OP2HMR"
+    secretKey: "a7IpTNVP+12gGttv/IXgdeQcDjF97DPY2wmEIFNp"
+    buckets:
+      - name: default
+        policy: public
+        purge: true
+
+    persistence:
+      enabled: false
+
+    service:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/minio/prometheus/metrics"
+        prometheus.io/port: "9000"
+
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      path: /
+      hosts:
+        - minio.sandbox.zwift.com

@@ -1,0 +1,77 @@
+#
+# Copyright 2018 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# Support for Python is experimental, and requires building SNAPSHOT image of Apache Spark,
+# with `imagePullPolicy` set to Always
+
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: hello-world
+  namespace: spark
+spec:
+  type: Python
+  pythonVersion: "3"
+  mode: cluster
+  image: "coqueirotree/spark-py:3.0.0-hadoop3.2"
+  imagePullPolicy: IfNotPresent
+  mainApplicationFile: http://10.103.158.235:9000/default/jobs/hello_world.py
+  # arguments:
+  #   - "100000"
+  #   - "--conf"
+  #   - "ohana"
+  sparkVersion: "3.0.0"
+  restartPolicy:
+    type: OnFailure
+    onFailureRetries: 1
+    onFailureRetryInterval: 10
+    onSubmissionFailureRetries: 5
+    onSubmissionFailureRetryInterval: 20
+  driver:
+    cores: 1
+    coreLimit: "1200m"
+    memory: "512m"
+    labels:
+      version: 3.0.0
+    serviceAccount: spark
+  executor:
+    cores: 1
+    instances: 1
+    memory: "512m"
+    labels:
+      version: 3.0.0
+  sparkConf:
+    "spark.hadoop.fs.s3a.endpoint": "http://10.103.158.235:9000"
+    "spark.hadoop.fs.s3a.access.key": "AKIA2BH2PTWKN3OP2HMR"
+    "spark.hadoop.fs.s3a.secret.key": "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"
+    "spark.hadoop.fs.s3a.connection.ssl.enabled": "false"
+    "spark.hadoop.fs.s3a.impl": "org.apache.hadoop.fs.s3a.S3AFileSystem"
+    "spark.hadoop.fs.s3a.path.style.access": "true"
+    "spark.driver.extraClassPath": "/opt/spark/jars/*"
+    "spark.executor.extraClassPath": "/opt/spark/jars/*"
+    
+    # "spark.ui.port": "4045"
+    # "spark.hadoop.fs.s3a.path.style.access": "true"
+    # "spark.sql.shuffle.partitions": "16"
+    # "spark.delta.logStore.class": "org.apache.spark.sql.delta.storage.S3SingleDriverLogStore"
+    # "spark.sql.sources.partitionOverwriteMode": "dynamic"
+    # "spark.sql.session.timeZone": "UTC"
+    # "spark.hadoop.mapreduce.fileoutputcommitter.algorithm.version": "2"
+    # "spark.databricks.delta.retentionDurationCheck.enabled": "false"
+
+    # "spark.hadoop.mapreduce.outputcommitter.factory.scheme.s3a":"org.apache.hadoop.fs.s3a.commit.S3ACommitterFactory"
+    # "spark.hadoop.fs.s3a.committer.name": "directory"
+    # "spark.sql.sources.commitProtocolClass": "org.apache.spark.internal.io.cloud.PathOutputCommitProtocol"
+    # "spark.sql.parquet.output.committer.class": "org.apache.spark.internal.io.cloud.BindingParquetOutputCommitter"
