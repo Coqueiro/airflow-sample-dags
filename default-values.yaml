@@ -7,7 +7,7 @@ airflow:
   ##
   image:
     repository: apache/airflow
-    tag: 1.10.10-python3.6
+    tag: 1.10.11-python3.6
     ## values: Always or IfNotPresent
     pullPolicy: IfNotPresent
     pullSecret: ""
@@ -137,7 +137,9 @@ airflow:
   ##   extraPipPackages:
   ##     - "airflow-exporter==1.3.1"
   ##
-  extraPipPackages: []
+  extraPipPackages:
+    - "apache-airflow-backport-providers-google"
+    # - "apache-airflow-backport-providers-cncf-kubernetes"
 
   ## extra volumeMounts for the web/scheduler/worker Pods
   ##
@@ -322,10 +324,10 @@ web:
   resources:
     limits:
       cpu: "0.5"
-      memory: "512Mi"
+      memory: "1Gi"
     requests:
       cpu: "0.5"
-      memory: "512Mi"
+      memory: "1Gi"
   initialStartupDelay: "60"
   initialDelaySeconds: "360"
 
