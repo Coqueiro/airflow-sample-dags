@@ -15,6 +15,11 @@
 # KIND, either express or implied.  See the License for the
 # specific language governing permissions and limitations
 # under the License.
+
+# This following config is only for testing purposes
+import sys
+sys.path.append('/opt/airflow/dags')
+
 from typing import Dict, Optional
 
 from airflow.exceptions import AirflowException

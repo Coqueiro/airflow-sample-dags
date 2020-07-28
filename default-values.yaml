@@ -105,7 +105,9 @@ airflow:
   ##           name: airflow-ldap-password
   ##           key: value
   ##
-  extraEnv: []
+  extraEnv:
+      - name: PYTHONENV
+        value: "/opt/airflow/dags"
 
   ## extra configMap volumeMounts for the web/scheduler/worker Pods
   ##
