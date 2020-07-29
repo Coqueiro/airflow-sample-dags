@@ -7,7 +7,8 @@ airflow:
   ##
   image:
     repository: apache/airflow
-    tag: 1.10.11-python3.6
+    # tag: master-python3.7
+    tag: 1.10.11-python3.7
     ## values: Always or IfNotPresent
     pullPolicy: IfNotPresent
     pullSecret: ""
@@ -592,7 +593,7 @@ flower:
   ## NOTE:
   ## - only takes effect if `airflow.executor` is `CeleryExecutor`
   ##
-  enabled: true
+  enabled: false
 
   ## resource requests/limits for the flower Pods
   resources:

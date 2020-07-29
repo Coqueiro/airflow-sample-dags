@@ -32,6 +32,7 @@ if __name__ == "__main__":
         .repartition(1)
         .write
         .option("compression", "snappy")
+        .mode('overwrite')
         .save("s3a://default/data/output")
     )
     spark.stop()
