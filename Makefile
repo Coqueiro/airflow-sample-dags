@@ -1,8 +1,7 @@
-VERSION=`cat VERSION`
-
 install:
 	@helm repo add stable https://kubernetes-charts.storage.googleapis.com
 	@helm repo update
+	@kubectl create ns airflow
 	@helm install airflow stable/airflow --namespace airflow --values ./default-values.yaml
 	@kubectl create secret generic airflow-git-keys \
  		 --from-file=id_rsa=${HOME}/.ssh/id_rsa \
@@ -12,3 +11,6 @@ install:
 
 upgrade:
 	@helm upgrade airflow stable/airflow --namespace airflow -f ./default-values.yaml
+
+delete:
+	@helm delete airflow --namespace airflow
